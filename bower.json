@@ -1,0 +1,28 @@
+{
+  "name": "pix",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Gabriel Vargas <gabva14@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-animate": "~1.5.8",
+    "angular-route": "~1.5.8",
+    "jquery": "~3.1.0",
+    "animate.css": "~3.5.2",
+    "bootstrap": "~3.3.7"
+  }
+}
