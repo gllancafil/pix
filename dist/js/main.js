@@ -392,13 +392,4 @@ n&&(l[m.name]=n)}q=l}else q=null;else q=null;q=a=q}q&&(b=t(c,{params:d.extend({}
 "$animate"];w.$inject=["$compile","$controller","$route"]})(window,window.angular);
 //# sourceMappingURL=angular-route.min.js.map
 
-;(function(angular) {
-'use strict';
-
-var app = angular.module('pix', [])
-
-app.controller('MainController', ["$scope", function($scope) {
-	$scope.message = 'Angular Works! 1'
-}])
-
-})(angular);
+!function(n){"use strict";function o(n){n.message="Angular Works!"}o.$inject=["$scope"];var r=n.module("pix",[]);r.controller("MainController",o)}(angular);
