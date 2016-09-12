@@ -30,7 +30,7 @@ const paths = {
   ]
 }
 
-gulp.task('connectDist', function () {
+gulp.task('server', function () {
   connect.server({
     name: 'Dist App',
     root: 'dist',
@@ -62,7 +62,7 @@ gulp.task('scripts', ['templates'], function() {
   return gulp.src(paths.javascripts)
     //first, I'm building a clean 'main.js' file
     .pipe(concat('main.js'))
-    .pipe(closure({angular: true}))
+    .pipe(closure({angular: true, window: true, document: true }))
     .pipe(ngannotate())
     .pipe(gulp.dest('./dist/js'))
     //then, uglify the `main.js` and rename it to `main.min.js`
@@ -94,9 +94,11 @@ gulp.task('useref', function () {
   .pipe(connect.reload());;
 });
 
-gulp.task('default', ['scripts', 'workflow', 'useref', 'connectDist'])
+gulp.task('default', ['scripts', 'workflow', 'useref', 'server'])
 
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', ['watchTask', 'server'])
+
+gulp.task('watchTask', ['default'], function() {
   let js = paths.javascripts.slice()
   js.splice(js.indexOf('./src/js/templates.js'), 1)
   gulp.watch(js, ['scripts'])
