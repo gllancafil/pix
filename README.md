@@ -9,5 +9,6 @@ Las carasteristicas de este workflow son:
  2. gulp-cssnano, comprimir nuestro estilos css
  3. gulp-connect, para crear un server localhost
  4. gulp-angular-templatecache, compresion de los templates de angular, para convertirlos en archivos js
- 5. gulp-concat, unir archivos js para luego comprimirlos 
- 6. gulp-useref, para optimizar el control de los assets 
+ 5. gulp-concat, unir archivos js para luego comprimirlos
+ 6. gulp-useref, para optimizar el control de los assets
+ 7. agregar otro punto
