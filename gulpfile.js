@@ -15,6 +15,7 @@ const ngannotate = require('gulp-ng-annotate')
 const closure = require('gulp-jsclosure')
 const p = require('path')
 const useref = require('gulp-useref');
+const connect = require('gulp-connect');
 
 const paths = {
   javascripts: [
@@ -28,6 +29,15 @@ const paths = {
     './app/templates/**/*.html'
   ]
 }
+
+gulp.task('connectDist', function () {
+  connect.server({
+    name: 'Dist App',
+    root: 'dist',
+    port: 8001,
+    livereload: true
+  });
+});
 
 gulp.task('templates', function() {
   return gulp.src(paths.templates)
@@ -45,6 +55,7 @@ gulp.task('templates', function() {
     }))
     .pipe(concat('templates.js'))
     .pipe(gulp.dest('./src/js'))
+    .pipe(connect.reload());
 })
 
 gulp.task('scripts', ['templates'], function() {
@@ -53,12 +64,13 @@ gulp.task('scripts', ['templates'], function() {
     .pipe(concat('main.js'))
     .pipe(closure({angular: true}))
     .pipe(ngannotate())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/js'))
     //then, uglify the `main.js` and rename it to `main.min.js`
     //mangling might cause issues with angular
     .pipe(uglify({mangle: true}))
     .pipe(rename('main.min.js'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(connect.reload());
 })
 
 gulp.task('workflow', function () {
@@ -72,15 +84,17 @@ gulp.task('workflow', function () {
     .pipe(cssnano())
     .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/css/'))
+  .pipe(connect.reload());;
 });
 
 gulp.task('useref', function () {
-  gulp.src('*.html')
+  gulp.src('./app/*.html')
       .pipe(useref())
-  .pipe(gulp.dest('./dist/'));
+  .pipe(gulp.dest('./dist/'))
+  .pipe(connect.reload());;
 });
 
-gulp.task('default', ['scripts', 'workflow', 'useref'])
+gulp.task('default', ['scripts', 'workflow', 'useref', 'connectDist'])
 
 gulp.task('watch', ['default'], function() {
   let js = paths.javascripts.slice()
